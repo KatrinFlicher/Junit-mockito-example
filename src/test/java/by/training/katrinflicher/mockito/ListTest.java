@@ -52,9 +52,9 @@ public class ListTest {
 
     @Test
     public void bddAliases_UsingGivenWillReturn(){
-        List list = mock(List.class);
+        List<String> list = mock(List.class);
         given(list.get(anyInt())).willReturn("Katrin");
-        assertThat(list.get(0), CoreMatchers.<Object>is("Katrin"));
-        assertThat(list.get(1), CoreMatchers.<Object>is("Katrin"));
+        assertThat(list.get(0), is("Katrin"));
+        assertThat(list.get(1), is("Katrin"));
     }
 }
