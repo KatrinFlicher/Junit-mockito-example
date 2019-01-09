@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
-public class TodoBusinessImplMockTest {
+public class TodoBusinessImplMockitoTest {
 
     @Test
     public void testUsingMockito() {
