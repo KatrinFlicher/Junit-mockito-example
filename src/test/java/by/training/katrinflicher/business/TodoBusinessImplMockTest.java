@@ -12,8 +12,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class TodoBusinessImplMockTest {
 
@@ -37,4 +36,18 @@ public class TodoBusinessImplMockTest {
         List<String> filteredTodos = todoBusiness.retrieveTodosRelatedToSpring("Dummy");
         assertThat(filteredTodos.size(), is(2));
     }
+
+    @Test
+    public void testDeleteNow(){
+        TodoService todoService = mock(TodoService.class);
+        TodoBusinessImpl todoBusiness = new TodoBusinessImpl(todoService);
+        List<String> allTodos = Arrays.asList("Learn Spring MVC", "Learn Spring", "Learn to Dance");
+        when(todoService.retrieveTodos("Dummy")).thenReturn(allTodos);
+        todoBusiness.deleteTodosNotRelatedToSpring("Dummy");
+        verify(todoService).deleteTodo("Learn to Dance");
+        verify(todoService, never()).deleteTodo("Learn Spring MVC");
+        verify(todoService, never()).deleteTodo("Learn Spring");
+        // atLeastOnce, atLeast
+    }
+
 }
