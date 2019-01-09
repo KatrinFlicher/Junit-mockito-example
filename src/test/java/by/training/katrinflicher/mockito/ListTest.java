@@ -34,6 +34,13 @@ public class ListTest {
         assertEquals(null, list.get(1));
     }
 
+    @Test(expected = RuntimeException.class)
+    public void letsMockListGetToThrowException(){
+        List list = mock(List.class);
+        when(list.get(anyInt())).thenThrow( new RuntimeException("Something went wrong"));
+        list.get(1);
+    }
+
     @Test
     public void letsMockListGetWithAny(){
         List list = mock(List.class);
@@ -48,6 +55,5 @@ public class ListTest {
         given(list.get(anyInt())).willReturn("Katrin");
         assertThat(list.get(0), is("Katrin"));
         assertThat(list.get(1), is("Katrin"));
-
     }
 }

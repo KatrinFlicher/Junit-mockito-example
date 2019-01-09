@@ -3,6 +3,7 @@ package by.training.katrinflicher.business;
 import by.training.katrinflicher.data.api.TodoService;
 import by.training.katrinflicher.data.api.TodoServiceStub;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 
 import java.util.Arrays;
 import java.util.List;
@@ -48,6 +49,18 @@ public class TodoBusinessImplMockTest {
         verify(todoService, never()).deleteTodo("Learn Spring MVC");
         verify(todoService, never()).deleteTodo("Learn Spring");
         // atLeastOnce, atLeast
+    }
+
+    @Test
+    public void testCaptureArgument(){
+        ArgumentCaptor<String> argumentCaptor = ArgumentCaptor.forClass(String.class);
+        TodoService todoService = mock(TodoService.class);
+        List<String> allTodos = Arrays.asList("Learn Spring MVC", "Learn Spring", "Learn to Dance");
+        when(todoService.retrieveTodos("Dummy")).thenReturn(allTodos);
+        TodoBusinessImpl todoBusiness = new TodoBusinessImpl(todoService);
+        todoBusiness.deleteTodosNotRelatedToSpring("Dummy");
+        verify(todoService).deleteTodo(argumentCaptor.capture());
+        assertEquals("Learn to Dance", argumentCaptor.getValue());
     }
 
 }
