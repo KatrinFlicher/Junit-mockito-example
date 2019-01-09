@@ -1,5 +1,6 @@
 package by.training.katrinflicher.mockito;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
 import java.util.List;
@@ -53,7 +54,7 @@ public class ListTest {
     public void bddAliases_UsingGivenWillReturn(){
         List list = mock(List.class);
         given(list.get(anyInt())).willReturn("Katrin");
-        assertThat(list.get(0), is("Katrin"));
-        assertThat(list.get(1), is("Katrin"));
+        assertThat(list.get(0), CoreMatchers.<Object>is("Katrin"));
+        assertThat(list.get(1), CoreMatchers.<Object>is("Katrin"));
     }
 }
